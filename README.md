@@ -15,6 +15,6 @@ Error no programa, type: usuario imcompleto 0000xFFFF1, closing file...
   returned for 0
  
 Use colocando em sua pasta de projeto, e import-a :) Simple e facíl, sem alterar o sistema!
-
-
-Feito pelo Python Works, Andrew Samuel.
+Feito pelo Python Works, Andrew Samuel. 
+Obrigado por abaixar, Thanks for downloading!
+The English version will soon be available, please wait :)
