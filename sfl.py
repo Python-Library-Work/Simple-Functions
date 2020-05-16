@@ -1,37 +1,52 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*- 
+# Yeah, that is a old repository of "functions"
+# but, I may use for check how much I learned since I started
+# programming. And how much I learned since my last post :)
 
-""
-Esse e um projeto feito pelo Python Works, simples libs para certas coisas
-exemplo: criar um arquivo de error, dizer um error e etc, esse e um projeto 
-para linux, o projeto do windows vai sair na versão 1.1
+def Split8 (Integer, Length=8, DisableBoolFlag=False):
+    """
+        Split a Integer to 8 bit format.
+        The flag on [0] is the negative flag.
+    """
+    value =  -(Integer) if Integer < 0 else Integer
+    buffer = []
+    if DisableBoolFlag: buffer.append( 1 if Integer < 0 else 0 )
+    else: buffer.append(Integer < 0)
 
-Para adicionar ao arquivo, digite import simplelibslinux, sim e bem grande.
-"""
+    for i in range (0, Length):
+        buffer.append(value & 0xFF)
+        value = value >> 8
 
-import os # Isso limpa a tela
-from random import randint # Isso gera números random, obvius :O
-from time import sleep # Importa uma lib que faz um time, prometo que farei algo igual para termos o nosso proprio :)
+    return buffer
 
-# Para os erros, tem essa lib
+def Convert8 (List, Length=8):
+    """
+        Convert the Splited list of 8 bit numbers.
+    """
+    value   = 0
+    b       = 0
+    for i in range (0, Length):
+        try:    value += (List[(i + 1)] << b)
+        except: break
+        b = b + 8
 
-def classic_error(name):
-	print("Error ocorred in program execution, type: "+ str(name)) # imprime a frase, e o error
-	main1 = raw_input('Press Key to Continue...') # Isso continua o Programa
-	exit()	# Isso fecha o programa
+    if List[0] or List[0] != 0: value = -(value)
+    return value
 
-def classic_error_tick(mame):
-	main2 = 1 # Isso e o main que mantem o while continuo ate o final da execução
-	clock1 = 1 # Isso e o clock ou relogio que conta o tema
-	while(main2<100):
-		print("Um Error houve no seu programa, type: "+ str(mame)+ " Wait one seconds for close...") # Isso printa isso
-		if(clock1<5):
-			main2 = 101 # Termina o while
-			print("Programa Terminado.") # Imprime isso
-			exit() # Fecha o programa
-		else:
-			pass # Se não ele passa normalmente :)
-		sleep(1) # Tempo para piscar
-		os.system("clear") # Isso só funciona no linux.
-		clock1 = clock1 + 1 #Isso adiciona ao clock + 1 
-	
+
+def test ():
+    """
+        Do some test on the internal functions
+    """
+    import random
+    c = 0
+    while c < 10:
+        N = random.randint(-(1<<32), (1<<32))
+        X = Split8 (N, DisableBoolFlag=True)
+        Y = Convert8 (X)
+
+        print("N = " + str(N) + " | X = " + str(X) + " | Y = " + str(Y) + " ? Match: " + str(N == Y))
+        c += 1
+
+
+if __name__ == '__main__':
+    test()
